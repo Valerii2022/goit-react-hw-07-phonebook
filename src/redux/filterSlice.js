@@ -1,22 +1,18 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { persistReducer } from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
 
 const filterSlice = createSlice({
   name: 'filter',
   initialState: '',
   reducers: {
-    filter(state, action) {
+    fetchingInProgress(state) {},
+    fetchingSuccess(state, action) {
       state.filter = action.payload.trim();
     },
+    fetchingError(state, action) {},
   },
 });
 
-const persistConfig = {
-  key: 'filter',
-  storage,
-};
+export const filterReducer = filterSlice.reducer;
 
-export const filterReducer = persistReducer(persistConfig, filterSlice.reducer);
-
-export const { filter } = filterSlice.actions;
+export const { fetchingInProgress, fetchingSuccess, fetchingError } =
+  filterSlice.actions;

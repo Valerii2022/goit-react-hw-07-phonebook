@@ -1,33 +1,32 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { getFilteredNames, getContactsNames } from 'redux/selectors';
-import { remove } from 'redux/contactsSlice';
-import { List, ListItem, Name, DeleteBtn, PhoneNumber } from './styled';
+import { getContactsNames } from 'redux/selectors';
+import { useEffect } from 'react';
+import { fetchContacts } from 'redux/operations';
+import { List, ListItem, Name, PhoneNumber, DeleteBtn } from './styled';
 
 export const ContactList = () => {
   const dispatch = useDispatch();
-  const contacts = useSelector(getContactsNames);
-  const queryFilter = useSelector(getFilteredNames);
+  const { items, isLoading, error } = useSelector(getContactsNames);
 
-  const filteredContacts = contacts.filter(contact =>
-    contact.name.toLowerCase().includes(queryFilter?.toLowerCase())
-  );
-
-  const contactsForRender = queryFilter ? filteredContacts : contacts;
+  useEffect(() => {
+    dispatch(fetchContacts());
+  }, [dispatch]);
 
   return (
     <List>
-      {contactsForRender.map(({ name, id, number }) => {
-        return (
-          <ListItem key={id}>
-            <Name>
-              {name}: <PhoneNumber>{number}</PhoneNumber>
-            </Name>
-            <DeleteBtn id={id} onClick={() => dispatch(remove(id))}>
-              Delete
-            </DeleteBtn>
-          </ListItem>
-        );
-      })}
+      {isLoading && <b>Loading contacts...</b>}
+      {error && <b>{error}</b>}
+      {items.length > 0 &&
+        items.map(({ name, id, phone }) => {
+          return (
+            <ListItem key={id}>
+              <Name>
+                {name}: <PhoneNumber>{phone}</PhoneNumber>
+              </Name>
+              <DeleteBtn id={id}>Delete</DeleteBtn>
+            </ListItem>
+          );
+        })}
     </List>
   );
 };

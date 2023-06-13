@@ -1,31 +1,25 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { persistReducer } from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
 
 const contactsSlice = createSlice({
   name: 'contacts',
-  initialState: { contacts: [], items: [], isLoading: false, error: null },
+  initialState: { items: [], isLoading: false, error: null },
   reducers: {
-    add(state, action) {
-      state.contacts.push(action.payload);
+    fetchingInProgress(state) {
+      state.isLoading = true;
     },
-    remove(state, action) {
-      const index = state.contacts.findIndex(
-        contact => contact.id === action.payload
-      );
-      state.contacts.splice(index, 1);
+    fetchingSuccess(state, action) {
+      state.isLoading = false;
+      state.error = null;
+      state.items = action.payload;
+    },
+    fetchingError(state, action) {
+      state.isLoading = false;
+      state.error = action.payload;
     },
   },
 });
 
-const persistConfig = {
-  key: 'contacts',
-  storage,
-};
+export const contactsReducer = contactsSlice.reducer;
 
-export const contactsReducer = persistReducer(
-  persistConfig,
-  contactsSlice.reducer
-);
-
-export const { add, remove } = contactsSlice.actions;
+export const { fetchingInProgress, fetchingSuccess, fetchingError } =
+  contactsSlice.actions;

@@ -1,39 +1,22 @@
-import { nanoid } from '@reduxjs/toolkit';
-import { useDispatch, useSelector } from 'react-redux';
-import { getContactsNames } from 'redux/selectors';
-import { add } from 'redux/contactsSlice';
+// import { useDispatch, useSelector } from 'react-redux';
+// import { getContactsNames } from 'redux/selectors';
+// import {
+//   fetchingInProgress,
+//   fetchingSuccess,
+//   fetchingError,
+// } from 'redux/contactsSlice';
 import { Form, AddContactBtn, FormLabel, FormInput } from './styled';
 
 export const ContactForm = () => {
-  const dispatch = useDispatch();
-  const contacts = useSelector(getContactsNames);
-  let name = '';
-  let number = '';
+  // const dispatch = useDispatch();
+  // const contacts = useSelector(getContactsNames);
 
   const handleInputChange = e => {
-    if (e.target.name === 'name') name = e.target.value;
-    if (e.target.name === 'number') number = e.target.value;
-  };
-
-  const onSubmit = e => {
-    e.preventDefault();
-    const addedName = contacts.some(
-      contact => contact.name.toLowerCase() === name.toLowerCase()
-    );
-
-    if (addedName) {
-      return alert(`${name} is already in contacts`);
-    }
-
-    const id = nanoid(10);
-    dispatch(add({ id, name, number }));
-
-    e.target[0].value = '';
-    e.target[1].value = '';
+    console.log('good');
   };
 
   return (
-    <Form onSubmit={onSubmit}>
+    <Form>
       <FormLabel>
         Name
         <FormInput
@@ -51,9 +34,9 @@ export const ContactForm = () => {
         <FormInput
           type="tel"
           name="number"
-          pattern="[0-9]{3} [0-9]{2} [0-9]{2} [0-9]{4}"
+          pattern="[0-9]{3} [0-9]{3} [0-9]{4}"
           title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-          placeholder="000 00 00 000"
+          placeholder="000 000 0000"
           onChange={handleInputChange}
           required
         />
