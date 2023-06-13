@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { filter, getFilteredNames } from 'redux/filterSlice';
+import { filter } from 'redux/filterSlice';
 import { FindLabel, FindInput, Form } from './styled';
+import { getFilteredNames } from 'redux/selectors';
 
 export const Filter = () => {
   const dispatch = useDispatch();

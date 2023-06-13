@@ -20,6 +20,3 @@ const persistConfig = {
 export const filterReducer = persistReducer(persistConfig, filterSlice.reducer);
 
 export const { filter } = filterSlice.actions;
-
-// Selectors
-export const getFilteredNames = state => state.filter.filter;
