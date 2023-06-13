@@ -4,8 +4,17 @@ import {
   fetchingSuccess,
   fetchingError,
 } from './contactsSlice';
+// import { createAsyncThunk } from '@reduxjs/toolkit';
 
 axios.defaults.baseURL = 'https://64881a170e2469c038fcf3d6.mockapi.io';
+
+// export const fetchContacts = createAsyncThunk(
+//   'contacts/fetchAll',
+//   async () => {
+//     const response = await axios.get('/contacts/contacts');
+//     return response.data;
+//   }
+// );
 
 export const fetchContacts = () => async dispatch => {
   try {
