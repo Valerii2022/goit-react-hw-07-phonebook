@@ -36,7 +36,7 @@ export const ContactForm = () => {
         <FormInput
           type="text"
           name="name"
-          pattern="[a-zA-Z]+"
+          pattern="[a-zA-Zа-яА-Я]+ ?[a-zA-Zа-яА-Я]+"
           title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
           placeholder="Adrian"
           onChange={handleInputChange}
@@ -48,9 +48,9 @@ export const ContactForm = () => {
         <FormInput
           type="tel"
           name="number"
-          pattern="[0-9]{3} [0-9]{2} [0-9]{2} [0-9]{3}"
+          pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
           title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-          placeholder="000 00 00 000"
+          placeholder="000-000-0000"
           onChange={handleInputChange}
           required
         />

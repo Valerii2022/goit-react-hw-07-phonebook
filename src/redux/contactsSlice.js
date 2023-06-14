@@ -36,7 +36,6 @@ const contactsSlice = createSlice({
         const index = state.items.findIndex(task => task.id === payload.id);
         state.items.splice(index, 1);
       })
-
       .addMatcher(action => {
         action.type.endsWith('/rejected');
       }, handleRejected);
