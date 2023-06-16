@@ -7,7 +7,6 @@ export const Filter = () => {
   const dispatch = useDispatch();
   const queryFilter = useSelector(getFilter);
 
-   console.log(queryFilter);
   return (
     <Form>
       <FindLabel>
